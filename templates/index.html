@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Analysis</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Report Analysis</h2>
+        <form action="/preprocess" method="POST">
+            <label for="panorama">Upload Panorama View:</label>
+            <input type="file" id="panorama" name="panorama" accept="image/*" onchange="displayPanoramaImage(event)"><br>
+            <div id="panorama-preview" class="image-preview"></div>
+
+            <label for="sampling">Upload Sampling Site:</label>
+            <input type="file" id="sampling" name="sampling" accept="image/*" onchange="displaySamplingImage(event)"><br>
+            <div id="sampling-preview" class="image-preview"></div>
+
+            <label>Soil Moisture:</label>
+            <input type="number" step="any" name="moisture" required><br>
+
+            <label>Temperature:</label>
+            <input type="number" step="any" name="temp" required><br>
+
+            <label>Absorbance 1:</label>
+            <input type="number" step="any" name="absorb1" required><br>
+
+            <label>Absorbance 2:</label>
+            <input type="number" step="any" name="absorb2" required><br>
+
+            <label>Pressure:</label>
+            <input type="number" step="any" name="pressure" required><br>
+
+            <label>Humidity:</label>
+            <input type="number" step="any" name="humidity" required><br>
+
+            <label>Carbonate (0 or 1):</label>
+            <input type="number" step="any" name="carbonate" required><br>
+
+            <button type="submit">Analyze</button>
+        </form>
+    </div>
+    <script>
+        function displayPanoramaImage(event) {
+            const preview = document.getElementById('panorama-preview');
+            preview.innerHTML = '';
+            const file = event.target.files[0];
+            if (file) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.alt = 'Mars Panorama';
+                img.className = 'panorama-image';
+                preview.appendChild(img);
+            }
+        }
+
+        function displaySamplingImage(event) {
+            const preview = document.getElementById('sampling-preview');
+            preview.innerHTML = '';
+            const file = event.target.files[0];
+            if (file) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.alt = 'Sampling Site';
+                img.className = 'sampling-image';
+                preview.appendChild(img);
+            }
+        }
+    </script>
+</body>
+</html>
