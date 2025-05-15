@@ -3,41 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Report Analysis</title>
+    <title>Soil Analysis</title>
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
     <div class="container">
-        <h2>Report Analysis</h2>
-        <form action="/preprocess" method="POST">
+        <h2>Soil Analysis</h2>
+        <form action="/preprocess" method="POST" enctype="multipart/form-data">
             <label for="panorama">Upload Panorama View:</label>
-            <input type="file" id="panorama" name="panorama" accept="image/*" onchange="displayPanoramaImage(event)"><br>
+            <input type="file" id="panorama" name="panorama" accept="image/*" onchange="displayPanoramaImage(event)">
             <div id="panorama-preview" class="image-preview"></div>
 
             <label for="sampling">Upload Sampling Site:</label>
-            <input type="file" id="sampling" name="sampling" accept="image/*" onchange="displaySamplingImage(event)"><br>
+            <input type="file" id="sampling" name="sampling" accept="image/*" onchange="displaySamplingImage(event)">
             <div id="sampling-preview" class="image-preview"></div>
 
-            <label>Soil Moisture:</label>
-            <input type="number" step="any" name="moisture" required><br>
+            <label for="moisture">Soil Moisture:</label>
+            <input type="number" step="any" name="moisture" required>
 
-            <label>Temperature:</label>
-            <input type="number" step="any" name="temp" required><br>
+            <label for="temp">Temperature:</label>
+            <input type="number" step="any" name="temp" required>
 
-            <label>Absorbance 1:</label>
-            <input type="number" step="any" name="absorb1" required><br>
+            <label for="absorb1">Absorbance 1:</label>
+            <input type="number" step="any" name="absorb1" required>
 
-            <label>Absorbance 2:</label>
-            <input type="number" step="any" name="absorb2" required><br>
+            <label for="absorb2">Absorbance 2:</label>
+            <input type="number" step="any" name="absorb2" required>
 
-            <label>Pressure:</label>
-            <input type="number" step="any" name="pressure" required><br>
+            <label for="pressure">Pressure:</label>
+            <input type="number" step="any" name="pressure" required>
 
-            <label>Humidity:</label>
-            <input type="number" step="any" name="humidity" required><br>
+            <label for="humidity">Humidity:</label>
+            <input type="number" step="any" name="humidity" required>
 
-            <label>Carbonate (0 or 1):</label>
-            <input type="number" step="any" name="carbonate" required><br>
+            <label for="carbonate_image">Upload Carbonate Test Image:</label>
+            <input type="file" id="carbonate_image" name="carbonate_image" accept="image/*" onchange="displayCarbonateImage(event)">
+            <div id="carbonate-preview" class="image-preview"></div>
+
+            <label for="carbonate">Carbonate Test Result (0 or 1):</label>
+            <input type="number" step="1" min="0" max="1" name="carbonate" required>
+
+            <label for="ninhydrin_image">Upload Ninhydrin Test Image:</label>
+            <input type="file" id="ninhydrin_image" name="ninhydrin_image" accept="image/*" onchange="displayNinhydrinImage(event)">
+            <div id="ninhydrin-preview" class="image-preview"></div>
+
+            <label for="ninhydrin">Ninhydrin Test Result (0 or 1):</label>
+            <input type="number" step="1" min="0" max="1" name="ninhydrin" required>
 
             <button type="submit">Analyze</button>
         </form>
@@ -50,7 +61,7 @@
             if (file) {
                 const img = document.createElement('img');
                 img.src = URL.createObjectURL(file);
-                img.alt = 'Mars Panorama';
+                img.alt = 'Panorama View';
                 img.className = 'panorama-image';
                 preview.appendChild(img);
             }
@@ -65,6 +76,32 @@
                 img.src = URL.createObjectURL(file);
                 img.alt = 'Sampling Site';
                 img.className = 'sampling-image';
+                preview.appendChild(img);
+            }
+        }
+
+        function displayCarbonateImage(event) {
+            const preview = document.getElementById('carbonate-preview');
+            preview.innerHTML = '';
+            const file = event.target.files[0];
+            if (file) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.alt = 'Carbonate Test';
+                img.className = 'carbonate-image';
+                preview.appendChild(img);
+            }
+        }
+
+        function displayNinhydrinImage(event) {
+            const preview = document.getElementById('ninhydrin-preview');
+            preview.innerHTML = '';
+            const file = event.target.files[0];
+            if (file) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.alt = 'Ninhydrin Test';
+                img.className = 'ninhydrin-image';
                 preview.appendChild(img);
             }
         }
